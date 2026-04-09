@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Allô Diank Services – Nettoyage & Placement au Sénégal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue:  #1a3a8f;
+      --blue2: #1e4db7;
+      --gold:  #f0c040;
+      --light: #f4f7ff;
+      --white: #ffffff;
+      --text:  #1a1a2e;
+      --muted: #6b7a99;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--blue);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 70px;
+      box-shadow: 0 4px 20px rgba(26,58,143,.4);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; color: var(--white); font-size: 1.3rem; }
+    .nav-logo span { color: var(--gold); }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul a { color: rgba(255,255,255,.85); text-decoration: none; font-weight: 500; font-size: .95rem; transition: color .2s; }
+    nav ul a:hover { color: var(--gold); }
+    .nav-cta { background: var(--gold); color: var(--blue) !important; padding: .45rem 1.2rem; border-radius: 50px; font-weight: 700 !important; }
+
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue2) 60%, #2563eb 100%);
+      display: flex; align-items: center;
+      padding: 100px 5% 60px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 80% 50%, rgba(240,192,64,.12) 0%, transparent 60%),
+                  radial-gradient(ellipse at 10% 80%, rgba(255,255,255,.06) 0%, transparent 50%);
+    }
+    .shapes { position: absolute; inset: 0; pointer-events: none; }
+    .shape { position: absolute; border-radius: 50%; background: rgba(255,255,255,.05); animation: float 8s ease-in-out infinite; }
+    .shape:nth-child(1){ width:300px;height:300px;top:-80px;right:5%;animation-delay:0s; }
+    .shape:nth-child(2){ width:200px;height:200px;bottom:10%;right:20%;animation-delay:2s; }
+    .shape:nth-child(3){ width:120px;height:120px;top:40%;right:8%;animation-delay:4s; }
+    .hero-inner { position: relative; z-index: 1; max-width: 700px; }
+    .badge {
+      display: inline-block;
+      background: rgba(240,192,64,.2); border: 1px solid var(--gold); color: var(--gold);
+      padding: .35rem 1rem; border-radius: 50px; font-size: .85rem; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1.5rem;
+      animation: fadeUp .6s ease both;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      color: var(--white); line-height: 1.15; margin-bottom: 1.2rem;
+      animation: fadeUp .7s .1s ease both;
+    }
+    h1 em { color: var(--gold); font-style: normal; }
+    .hero-sub { color: rgba(255,255,255,.8); font-size: 1.15rem; line-height: 1.7; margin-bottom: 2rem; max-width: 500px; animation: fadeUp .7s .2s ease both; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp .7s .3s ease both; }
+    .btn-primary {
+      background: var(--gold); color: var(--blue); padding: .85rem 2rem; border-radius: 50px;
+      text-decoration: none; font-weight: 700; font-size: 1rem;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 8px 24px rgba(240,192,64,.4);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(240,192,64,.5); }
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,.5); color: var(--white); padding: .85rem 2rem;
+      border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 1rem;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,.1); }
+
+    .stats {
+      background: var(--white);
+      display: flex; justify-content: center; flex-wrap: wrap;
+      box-shadow: 0 8px 40px rgba(26,58,143,.1);
+    }
+    .stat { flex: 1; min-width: 160px; padding: 1.8rem 2rem; text-align: center; border-right: 1px solid #e8edf5; }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--blue); font-weight: 900; }
+    .stat-label { color: var(--muted); font-size: .85rem; margin-top: .2rem; }
+
+    section { padding: 90px 5%; }
+    .section-tag { font-size: .8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--blue2); margin-bottom: .6rem; }
+    h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--text); margin-bottom: 1rem; line-height: 1.25; }
+    .sub { color: var(--muted); font-size: 1.05rem; line-height: 1.7; max-width: 550px; }
+
+    #services { background: var(--white); }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .service-card {
+      background: var(--light); border-radius: 20px; padding: 2rem;
+      border: 1.5px solid transparent;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--gold)); opacity: 0; transition: opacity .3s;
+    }
+    .service-card:hover { border-color: rgba(26,58,143,.2); transform: translateY(-6px); box-shadow: 0 20px 50px rgba(26,58,143,.1); }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+    .service-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--blue); margin-bottom: .5rem; }
+    .service-card p { color: var(--muted); font-size: .95rem; line-height: 1.6; }
+
+    #pourquoi { background: var(--light); }
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem; align-items: center; }
+    .why-visual {
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      border-radius: 24px; padding: 3rem 2rem; text-align: center; color: var(--white);
+      position: relative; overflow: hidden;
+    }
+    .why-visual::after { content: '✨'; position: absolute; font-size: 8rem; opacity: .06; top: -10px; right: -10px; }
+    .why-visual .big-icon { font-size: 5rem; margin-bottom: 1rem; display: block; }
+    .why-visual h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: .5rem; }
+    .why-visual p { opacity: .8; font-size: .95rem; }
+    .reasons { display: flex; flex-direction: column; gap: 1.2rem; }
+    .reason { display: flex; align-items: flex-start; gap: 1rem; background: var(--white); border-radius: 16px; padding: 1.2rem 1.5rem; box-shadow: 0 4px 20px rgba(26,58,143,.06); }
+    .reason-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .reason h4 { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: .2rem; }
+    .reason p { color: var(--muted); font-size: .9rem; }
+
+    #contact { background: linear-gradient(135deg, var(--blue) 0%, var(--blue2) 100%); color: var(--white); text-align: center; }
+    #contact h2 { color: var(--white); }
+    #contact .sub { color: rgba(255,255,255,.75); margin: 0 auto 3rem; }
+    .contact-cards { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 3rem; }
+    .contact-card {
+      background: rgba(255,255,255,.1); backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.2); border-radius: 20px;
+      padding: 1.8rem 2.5rem; min-width: 200px; transition: background .3s;
+    }
+    .contact-card:hover { background: rgba(255,255,255,.18); }
+    .contact-card .c-icon { font-size: 2rem; margin-bottom: .8rem; display: block; }
+    .contact-card .c-label { font-size: .8rem; opacity: .7; text-transform: uppercase; letter-spacing: 1px; }
+    .contact-card .c-val { font-size: 1.05rem; font-weight: 600; margin-top: .3rem; }
+    .contact-card a { color: var(--white); text-decoration: none; }
+    .zone {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(240,192,64,.2); border: 1px solid var(--gold); color: var(--gold);
+      border-radius: 50px; padding: .5rem 1.5rem; font-weight: 600; font-size: .95rem;
+    }
+
+    footer { background: #0f1f5c; color: rgba(255,255,255,.5); text-align: center; padding: 2rem 5%; font-size: .9rem; }
+    footer strong { color: var(--white); }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+    @media (max-width: 768px) {
+      nav ul { display: none; }
+      .why-grid { grid-template-columns: 1fr; }
+      .stat { border-right: none; border-bottom: 1px solid #e8edf5; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Allô <span>Diank</span> Services</div>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pourquoi">Pourquoi nous</a></li>
+    <li><a href="#contact" class="nav-cta">Nous contacter</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="shapes">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+  <div class="hero-inner">
+    <span class="badge">🇸🇳 Disponibles partout au Sénégal</span>
+    <h1>Propreté <em>impeccable</em>,<br/>satisfaction garantie</h1>
+    <p class="hero-sub">
+      Allô Diank Services vous propose des femmes de ménage qualifiées et fiables
+      pour vos maisons, bureaux et entreprises — ponctuel, professionnel, écologique.
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">📞 Demander un devis</a>
+      <a href="#services" class="btn-outline">Voir nos services</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Satisfaction garantie</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">🌿</div>
+    <div class="stat-label">Produits écologiques</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">3</div>
+    <div class="stat-label">Numéros disponibles</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">24h</div>
+    <div class="stat-label">Intervention rapide</div>
+  </div>
+</div>
+
+<section id="services">
+  <div class="section-tag">Ce que nous faisons</div>
+  <h2>Nos services de nettoyage</h2>
+  <p class="sub">Du grand ménage ponctuel à l'aide ménagère régulière, nous couvrons tous vos besoins.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-icon">🏢</span>
+      <h3>Nettoyage de bureaux</h3>
+      <p>Locaux propres et accueillants pour vos collaborateurs et clients, selon votre planning.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🏠</span>
+      <h3>Nettoyage de maisons</h3>
+      <p>Grand ménage complet ou entretien régulier, nous nous occupons de tout avec soin.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🛋️</span>
+      <h3>Lavage de meubles</h3>
+      <p>Canapés, matelas, fauteuils — remis à neuf avec des produits adaptés et efficaces.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🧹</span>
+      <h3>Aide ménagère</h3>
+      <p>Ponctuelle ou régulière, notre aide ménagère s'adapte à votre quotidien et vos besoins.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🏗️</span>
+      <h3>Nettoyage de toitures</h3>
+      <p>Prestation sur devis. Toitures débarrassées des mousses, poussières et dépôts.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">👩‍💼</span>
+      <h3>Placement de femmes de ménage</h3>
+      <p>Nous sélectionnons et plaçons des femmes de ménage fiables et formées chez vous.</p>
+    </div>
+  </div>
+</section>
+
+<section id="pourquoi">
+  <div class="why-grid">
+    <div class="why-visual">
+      <span class="big-icon">🏆</span>
+      <h3>Votre satisfaction,<br/>notre engagement</h3>
+      <p>Chaque intervention est réalisée avec soin et professionnalisme.</p>
+    </div>
+    <div>
+      <div class="section-tag">Pourquoi nous choisir</div>
+      <h2>Professionnels,<br/>fiables et rapides</h2>
+      <div class="reasons" style="margin-top:1.5rem;">
+        <div class="reason">
+          <span class="reason-icon">🤝</span>
+          <div>
+            <h4>Équipe professionnelle et fiable</h4>
+            <p>Nos agents sont sélectionnés avec soin et formés pour un travail impeccable.</p>
+          </div>
+        </div>
+        <div class="reason">
+          <span class="reason-icon">🌿</span>
+          <div>
+            <h4>Produits écologiques</h4>
+            <p>Nous utilisons des produits respectueux de l'environnement et de votre santé.</p>
+          </div>
+        </div>
+        <div class="reason">
+          <span class="reason-icon">⚡</span>
+          <div>
+            <h4>Interventions rapides</h4>
+            <p>Nous répondons rapidement à vos demandes et respectons les délais.</p>
+          </div>
+        </div>
+        <div class="reason">
+          <span class="reason-icon">🗺️</span>
+          <div>
+            <h4>Disponibles partout au Sénégal</h4>
+            <p>Dakar, banlieue et régions — nous intervenons là où vous avez besoin.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-tag" style="color:var(--gold)">Contactez-nous</div>
+  <h2>Prêt à travailler avec nous ?</h2>
+  <p class="sub">Appelez-nous ou envoyez un email — devis gratuit et intervention rapide.</p>
+  <div class="contact-cards">
+    <div class="contact-card">
+      <span class="c-icon">📞</span>
+      <div class="c-label">Téléphone 1</div>
+      <div class="c-val"><a href="tel:+221772961952">77 296 19 52</a></div>
+    </div>
+    <div class="contact-card">
+      <span class="c-icon">📱</span>
+      <div class="c-label">Téléphone 2</div>
+      <div class="c-val"><a href="tel:+221775179153">77 517 91 53</a></div>
+    </div>
+    <div class="contact-card">
+      <span class="c-icon">☎️</span>
+      <div class="c-label">Téléphone 3</div>
+      <div class="c-val"><a href="tel:+221774907425">77 490 74 25</a></div>
+    </div>
+    <div class="contact-card">
+      <span class="c-icon">✉️</span>
+      <div class="c-label">Email</div>
+      <div class="c-val"><a href="mailto:flamine090@gmail.com">flamine090@gmail.com</a></div>
+    </div>
+  </div>
+  <div class="zone">📍 Disponibles partout au Sénégal</div>
+</section>
+
+<footer>
+  <p>&copy; 2025 <strong>Allô Diank Services</strong> — Propreté impeccable, satisfaction 100% garantie.</p>
+</footer>
+
+</body>
+</html>
